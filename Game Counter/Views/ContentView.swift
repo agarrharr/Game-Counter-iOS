@@ -17,7 +17,7 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack() {
+            ScrollView {
                 ForEach(scores) { score in
                     CounterView(score: score)
                         .padding(.bottom)

@@ -10,8 +10,9 @@ import SwiftUI
 
 struct CounterView: View {
     @ObservedObject var score: Score
+    @State private var currentAddend = 0
     
-    @Environment(\.managedObjectContext) var viewContext: NSManagedObjectContext
+    @Environment(\.managedObjectContext) private var viewContext: NSManagedObjectContext
     
     var body: some View {
         VStack {
@@ -19,37 +20,10 @@ struct CounterView: View {
                 .font(.system(size: 80))
                 .foregroundColor(.accentColor)
             HStack (spacing: 0) {
-                Button {
-                    Score.add(score, number: -1, in: viewContext)
-                } label: {
-                    Text("-1")
-                        .frame(minWidth: 20, maxWidth: .infinity, minHeight: 44)
-                        .border(Color.accentColor, width: 1)
-                }
-                
-                Button {
-                    Score.add(score, number: -5, in: viewContext)
-                } label: {
-                    Text("-5")
-                        .frame(minWidth: 20, maxWidth: .infinity, minHeight: 44)
-                        .border(Color.accentColor, width: 1)
-                }
-                
-                Button {
-                    Score.add(score, number: 5, in: viewContext)
-                } label: {
-                    Text("5")
-                        .frame(minWidth: 20, maxWidth: .infinity, minHeight: 44)
-                        .border(Color.accentColor, width: 1)
-                }
-                
-                Button {
-                    Score.add(score, number: 1, in: viewContext)
-                } label: {
-                    Text("1")
-                        .frame(minWidth: 20, maxWidth: .infinity, minHeight: 44)
-                        .border(Color.accentColor, width: 1)
-                }
+                ButtonView(score: score, amount: -1, currentAddend: $currentAddend)
+                ButtonView(score: score, amount: -5, currentAddend: $currentAddend)
+                ButtonView(score: score, amount: 5, currentAddend: $currentAddend)
+                ButtonView(score: score, amount: 1, currentAddend: $currentAddend)
             }
         }
     }
